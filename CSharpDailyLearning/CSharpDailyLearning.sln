@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00.Base", "00.Base", "{9858
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumOperatorTests", "EnumOperatorTests\EnumOperatorTests.csproj", "{B3BBDBB5-1980-4D81-A3CC-291F9E9645E9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.Normal", "01.Normal", "{7CBE9835-1B09-4051-B6B0-92821F50E319}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{5004A220-A951-44C6-8A2A-5873DF73FED0} = {7CBE9835-1B09-4051-B6B0-92821F50E319}
 		{FFE724D4-1931-4170-BDB6-09AA8594EC38} = {98586055-11B1-4BE1-808B-C97D31001C51}
+		{B3BBDBB5-1980-4D81-A3CC-291F9E9645E9} = {98586055-11B1-4BE1-808B-C97D31001C51}
 	EndGlobalSection
 EndGlobal

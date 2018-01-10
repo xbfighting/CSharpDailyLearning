@@ -12,7 +12,7 @@ namespace EnumOperator
     {
         public static string GetEnumDescriptionByInt(int? number)
         {
-            return ((PackageStoredTypeEnum) number).GetDescription();
+            return ((PackageStoredTypeEnum)number).GetDescription();
         }
     }
 

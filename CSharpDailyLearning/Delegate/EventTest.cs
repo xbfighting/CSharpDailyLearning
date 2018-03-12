@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Delegate
 {
 
-    public class EventTest000
+    public class EventTest
     {
         public delegate void SendMessageHandler(object sender, MessageArgs e);
 
@@ -38,7 +38,6 @@ namespace Delegate
             SendMessage?.Invoke(null, data);
 
             Console.WriteLine("Class is over!");
-            Console.ReadKey();
         }
     }
 

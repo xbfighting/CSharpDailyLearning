@@ -29,6 +29,7 @@ namespace ContextualKeywords
         {
             for (int i = 0; i < n; i++)
             {
+                // yield 是一个语法糖，它的本质是为我们实现 IEnumerator 接口。
                 yield return i;
             }
         }

@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="DelegateActionFun.cs" />
     <Compile Include="EventTest.cs" />
+    <Compile Include="IEnumeratorExecise.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="DelegateActionFunTests.cs" />
     <Compile Include="EventTestTests.cs" />
+    <Compile Include="PeopleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration.Assemblies;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,5 +35,22 @@ namespace ContextualKeywords
             }
         }
 
+        public class Vector
+        {
+            public double X { get; set; }
+            public double Y { get; set; }
+
+            public Vector(double x, double y)
+            {
+                Console.WriteLine("Vector object is instantiated.");
+                X = x;
+                Y = y;
+            }
+
+            public override string ToString()
+            {
+                return $"X:{X},X:{Y}";
+            }
+        }
     }
 }

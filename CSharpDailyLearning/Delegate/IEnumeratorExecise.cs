@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace Delegate
 {
+    //  IEnumerable的缺点
+    //  IEnumerable 功能有限，不能插入和删除。
+    //  访问 IEnumerable 只能通过迭代，不能使用索引器。迭代显然是非线程安全的，每次 IEnumerable 都会生成新的 IEnumerator，从而形成多个互相不影响的迭代过程。
+    //  在迭代时，只能前进不能后退。新的迭代不会记得之前迭代后值的任何变化。
+
     public class People : IEnumerable
     {
         private readonly Person[] _people;

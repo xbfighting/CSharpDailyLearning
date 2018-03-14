@@ -38,18 +38,5 @@ namespace Delegate.Tests
             // then
             Assert.AreEqual(excepted, result);
         }
-
-        [Test]
-        public void GetEnumeratorTest()
-        {
-            Person[] pArray =
-           {
-                new Person {FirstName = "F1", LastName = "L1"},
-                new Person {FirstName = "F2", LastName = "L2"},
-                new Person {FirstName = "F3", LastName = "L3"},
-            };
-            
-            Assert.Fail();
-        }
     }
 }

@@ -36,11 +36,5 @@ namespace ContextualKeywords.Tests
             }
             hte.ShowDistrib(names);
         }
-
-        [Test]
-        public void ShowDistribTest()
-        {
-            Assert.Fail();
-        }
     }
 }

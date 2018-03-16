@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CaptureVariable.cs" />
     <Compile Include="DelegateActionFun.cs" />
     <Compile Include="EventTest.cs" />
     <Compile Include="IEnumeratorExecise.cs" />

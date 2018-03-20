@@ -66,8 +66,8 @@ namespace ThreadBaseTests
                 Console.WriteLine("Starting...");
             }).ContinueWith(anencedent => Console.WriteLine("Continuing A..."));
 
-            Task taskB = taskA.ContinueWith(anencedent => Console.WriteLine("Continuing B..."));
-            Task taskC = taskB.ContinueWith(anencedent => Console.WriteLine("Continuing C..."));
+            Task taskB = taskA.ContinueWith(antecedent => Console.WriteLine("Continuing B..."));
+            Task taskC = taskB.ContinueWith(antecedent => Console.WriteLine("Continuing C..."));
 
             Task.WaitAll(taskB, taskC);
 

@@ -117,6 +117,73 @@ namespace ThreadBaseTests
 
             completedTask.Wait();
         }
+
+        #region 异步线程 异常处理
+
+        /// <summary>
+        /// AggregateException 可以捕获多个异常
+        /// </summary>
+        [Test]
+        public void ExcepetionHandleTest01()
+        {
+            Task task = Task.Run(() =>
+            {
+                throw new InvalidOperationException();
+            });
+
+            try
+            {
+                task.Wait();
+            }
+            catch (AggregateException ex)
+            {
+                ex.Handle(eachException =>
+                {
+                    Console.WriteLine($"Error:{ex.Message}");
+                    return true;
+                });
+            }
+        }
+
+        /// <summary>
+        /// 使用ContinuWith来观察未处理的异常
+        /// <remarks>无法捕捉</remarks>
+        /// </summary>
+        [Test]
+        public void Excepetion_ContinueWithTest()
+        {
+            bool parentTaskFaulted = false;
+            Task task = new Task(() =>
+            {
+                throw new InvalidOperationException();
+            });
+
+            Task continuationTask = task.ContinueWith((antecedentTask) =>
+            {
+                parentTaskFaulted = antecedentTask.IsFaulted;
+            }, TaskContinuationOptions.OnlyOnFaulted);
+
+            task.Start();
+
+            // 无法捕捉异常
+            continuationTask.Wait();
+            Trace.Assert(parentTaskFaulted);
+
+            if (!task.IsFaulted)
+            {
+                task.Wait();
+            }
+            else
+            {
+                task.Exception.Handle(eachException =>
+                {
+                    Console.WriteLine($"ERROR:{eachException.Message}");
+                    return true;
+                });
+            }
+        }
+
+        #endregion
     }
 
     #region 边角料

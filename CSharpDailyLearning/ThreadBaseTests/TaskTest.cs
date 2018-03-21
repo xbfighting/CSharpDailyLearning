@@ -183,6 +183,52 @@ namespace ThreadBaseTests
             }
         }
 
+        public static Stopwatch clock = new Stopwatch();
+        /// <summary>
+        /// 登记未处理的异常
+        /// </summary>
+        [Test]
+        public void RegisterUnhandledException()
+        {
+            try
+            {
+                clock.Start();
+
+                // 为未处理的异常注册一个回调获取提醒
+                AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+                {
+                    Message("Event handler starting");
+                    Delay(4000); // handle exception
+                };
+
+                Thread thread = new Thread(() =>
+                {
+                    Message("Throw exception");
+                    throw new Exception();
+                });
+
+                thread.Start();
+                Delay(2000);
+            }
+            finally 
+            {
+                Message("Finally block running.");
+            }
+        }
+
+        static void Delay(int i)
+        {
+            Message($"Sleeping for {i} ms");
+            Thread.Sleep(i);
+            Message($"Awake");
+        }
+
+        static void Message(string text)
+        {
+            Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} : {clock.ElapsedMilliseconds}:{text}");
+
+        }
+
         #endregion
     }
 

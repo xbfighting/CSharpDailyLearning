@@ -67,11 +67,21 @@ namespace ThreadBaseTests
             }).ContinueWith(anencedent => Console.WriteLine("Continuing A..."));
 
             Task taskB = taskA.ContinueWith(antecedent => Console.WriteLine("Continuing B..."));
-            Task taskC = taskB.ContinueWith(antecedent => Console.WriteLine("Continuing C..."));
+            Task taskC = taskA.ContinueWith(antecedent => Console.WriteLine("Continuing C..."));
 
             Task.WaitAll(taskB, taskC);
 
             Console.WriteLine("Finished!");
+
+            /*
+             * Before Starting... 
+             * Continuing A... 
+             * Continuing C... 
+             * Continuing B... 
+             * Finished!         
+             * 
+             * PS:B和C的顺序不一定是CB 
+             */
         }
     }
 

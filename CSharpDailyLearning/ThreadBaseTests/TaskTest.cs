@@ -1,6 +1,7 @@
 ﻿using ThreadBase;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -56,7 +57,10 @@ namespace ThreadBaseTests
             Console.WriteLine(task.Result);
             System.Diagnostics.Trace.Assert(task.IsCompleted);
         }
-        
+
+        /// <summary>
+        /// ContinueWithTest
+        /// </summary>
         [Test]
         public void ContinueWithTest()
         {
@@ -83,8 +87,39 @@ namespace ThreadBaseTests
              * PS:B和C的顺序不一定是CB 
              */
         }
+
+        /// <summary>
+        /// ContinueWith 的一些可选属性
+        /// </summary>
+        [Test]
+        public void ContinueWithTest02()
+        {
+            Task<string> task = Task.Run<string>(() => PiCalculator.Calculate(10));
+
+            // 本程序中 faultedTask 和 canceledTask 不可能发生，所以不可以等待。
+            Task faultedTask = task.ContinueWith((antecedentTask) =>
+            {
+                Trace.Assert(task.IsFaulted);
+                Console.WriteLine("Task State:Faulted");
+            },TaskContinuationOptions.OnlyOnFaulted);
+
+            Task canceledTask = task.ContinueWith((antecedentTask) =>
+            {
+                Trace.Assert(task.IsCanceled);
+                Console.WriteLine("Task State:Canceled");
+            }, TaskContinuationOptions.OnlyOnCanceled);
+
+            Task completedTask = task.ContinueWith((antecedentTask) =>
+            {
+                Trace.Assert(task.IsCompleted);
+                Console.WriteLine("Task State:Completed");
+            }, TaskContinuationOptions.OnlyOnRanToCompletion);
+
+            completedTask.Wait();
+        }
     }
 
+    #region 边角料
     public class Utility
     {
         public static IEnumerable<char> BusySymbols()
@@ -108,4 +143,5 @@ namespace ThreadBaseTests
             return digits.ToString();
         }
     }
+    #endregion
 }

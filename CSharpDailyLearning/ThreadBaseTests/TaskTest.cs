@@ -15,11 +15,14 @@ namespace ThreadBaseTests
     [TestFixture]
     public class TaskTest
     {
+        /// <summary>
+        /// TASK
+        /// </summary>
         [Test]
         public void RunTest()
         {
             const int repetitions = 1000;
-
+            // Task.Factory.StartNew() 简写版 Task.Run()
             var task = Task.Run(() =>
             {
                 for (int i = 0; i < repetitions; i++)
@@ -38,7 +41,7 @@ namespace ThreadBaseTests
         }
 
         /// <summary>
-        /// 
+        /// 轮询一个TASK<T>
         /// </summary>
         [Test]
         public void RunTest01()
@@ -48,7 +51,7 @@ namespace ThreadBaseTests
             {
                 if (task.IsCompleted)
                 {
-                    Console.Write('\b');
+                    Console.Write($"IsCompleted:{task.IsCompleted}");
                     break;
                 }
                 Console.Write(busySymbols);
@@ -101,7 +104,7 @@ namespace ThreadBaseTests
             {
                 Trace.Assert(task.IsFaulted);
                 Console.WriteLine("Task State:Faulted");
-            },TaskContinuationOptions.OnlyOnFaulted);
+            }, TaskContinuationOptions.OnlyOnFaulted);
 
             Task canceledTask = task.ContinueWith((antecedentTask) =>
             {
@@ -184,6 +187,7 @@ namespace ThreadBaseTests
         }
 
         public static Stopwatch clock = new Stopwatch();
+
         /// <summary>
         /// 登记未处理的异常
         /// </summary>
@@ -210,23 +214,22 @@ namespace ThreadBaseTests
                 thread.Start();
                 Delay(2000);
             }
-            finally 
+            finally
             {
                 Message("Finally block running.");
             }
         }
 
-        static void Delay(int i)
+        private static void Delay(int i)
         {
             Message($"Sleeping for {i} ms");
             Thread.Sleep(i);
             Message($"Awake");
         }
 
-        static void Message(string text)
+        private static void Message(string text)
         {
             Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} : {clock.ElapsedMilliseconds}:{text}");
-
         }
 
         #endregion
@@ -237,14 +240,14 @@ namespace ThreadBaseTests
     {
         public static IEnumerable<char> BusySymbols()
         {
-            string busySymbols = @"-\|/-\|/";
+            string busySymbols = @"QWERTYUIO";
 
             int next = 0;
             while (true)
             {
                 yield return busySymbols[next];
                 next = (next + 1)%busySymbols.Length;
-                yield return '\b';
+                yield return '1';
             }
         }
     }
@@ -253,6 +256,7 @@ namespace ThreadBaseTests
     {
         public static string Calculate(int digits = 100)
         {
+            //Thread.Sleep(100);
             return digits.ToString();
         }
     }

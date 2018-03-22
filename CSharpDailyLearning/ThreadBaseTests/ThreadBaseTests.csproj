@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="CancelTaskTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskAsynsBase5Test.cs" />
     <Compile Include="TaskTest.cs" />
     <Compile Include="ThreadBaseTests.cs" />
     <Compile Include="ThreadPoolTests.cs" />

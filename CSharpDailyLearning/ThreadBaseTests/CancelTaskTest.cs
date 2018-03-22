@@ -1,6 +1,7 @@
 ﻿using ThreadBase;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -88,5 +89,18 @@ namespace ThreadBaseTests
             }
         }
         #endregion
+
+        /// <summary>
+        /// 长时间运行的任务
+        /// <remarks>这里只能使用Task.Factory.StartNew(,options)</remarks>
+        /// 要告诉工厂新建的任务可能长时间运行，使其能恰当地管理它
+        /// 尽量避免使用 TaskCreationOptions.LongRunning
+        /// </summary>
+        [Test]
+        public void LongRunningTest()
+        {
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            var task = Task.Factory.StartNew(() => WritePi(cancellationTokenSource.Token), TaskCreationOptions.LongRunning);
+        }
     }
 }

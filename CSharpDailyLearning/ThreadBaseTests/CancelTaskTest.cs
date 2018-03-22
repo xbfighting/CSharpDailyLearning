@@ -43,7 +43,7 @@ namespace ThreadBaseTests
             task.Wait();
         }
 
-        #region 这里的例子实现的不是很棒
+        #region 不是打印Pi的每一位数但是模拟延迟打印随机数字
         /// <summary>
         /// 取消线程
         /// </summary>
@@ -55,11 +55,20 @@ namespace ThreadBaseTests
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
             Task task = Task.Run(()=> WritePi(cancellationTokenSource.Token), cancellationTokenSource.Token);
-            Thread.Sleep(10); // 模拟用户按下了 Enter
+            Thread.Sleep(100); // 模拟用户按下了 Enter
             cancellationTokenSource.Cancel();
+            Console.WriteLine();
             Console.WriteLine(stars);
             task.Wait();
             Console.WriteLine();
+
+            /* OUT PUT
+             * 
+             * Push ENTER to exit.
+             * 221456847
+             * *********************************************
+             * 2 // 这里也是一个随机数，因为cancellationTokenSource.Cancel(); 后，极有可能又做了一次迭代。
+             */
         }
 
         /// <summary>
@@ -67,19 +76,17 @@ namespace ThreadBaseTests
         /// </summary>
         private void WritePi(CancellationToken cancellationToken)
         {
-            const int batchSize = 1;
             string piSection = String.Empty;
             int i = 0;
 
             while (!cancellationToken.IsCancellationRequested || i == int.MaxValue)
             {
-                piSection = PiCalculator.Calculate(batchSize, (i++)*batchSize);
+                Thread.Sleep(10);
+                i++;
+                piSection = new Random().Next(i).ToString();
                 Console.Write(piSection);
-
             }
         }
         #endregion
-
-
     }
 }

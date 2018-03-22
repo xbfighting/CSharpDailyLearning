@@ -43,13 +43,43 @@ namespace ThreadBaseTests
             task.Wait();
         }
 
+        #region 这里的例子实现的不是很棒
         /// <summary>
-        /// 消除
+        /// 取消线程
         /// </summary>
         [Test]
         public void CancellationToken()
         {
-            
+            string stars = "*".PadRight(Console.WindowWidth, '*');
+            Console.WriteLine("Push ENTER to exit.");
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+
+            Task task = Task.Run(()=> WritePi(cancellationTokenSource.Token), cancellationTokenSource.Token);
+            Thread.Sleep(10); // 模拟用户按下了 Enter
+            cancellationTokenSource.Cancel();
+            Console.WriteLine(stars);
+            task.Wait();
+            Console.WriteLine();
         }
+
+        /// <summary>
+        /// PI
+        /// </summary>
+        private void WritePi(CancellationToken cancellationToken)
+        {
+            const int batchSize = 1;
+            string piSection = String.Empty;
+            int i = 0;
+
+            while (!cancellationToken.IsCancellationRequested || i == int.MaxValue)
+            {
+                piSection = PiCalculator.Calculate(batchSize, (i++)*batchSize);
+                Console.Write(piSection);
+
+            }
+        }
+        #endregion
+
+
     }
 }

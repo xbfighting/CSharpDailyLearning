@@ -259,6 +259,12 @@ namespace ThreadBaseTests
             //Thread.Sleep(100);
             return digits.ToString();
         }
+
+        public static string Calculate(int digits, int batchSize)
+        {
+            //Thread.Sleep(100);
+            return digits.ToString();
+        }
     }
     #endregion
 }
